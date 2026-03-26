@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>订阅中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {}
+        }
+      };
+    </script>
+  </head>
+  <body class="min-h-screen bg-slate-50 font-sans text-slate-900 pb-32">
+    <!-- 状态栏模拟 -->
+    <div class="flex justify-between items-center p-4 bg-transparent sticky top-0 z-50">
+      <button class="p-2 bg-white/50 backdrop-blur rounded-full shadow-sm" type="button" aria-label="返回">
+        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+      </button>
+      <h1 class="text-lg font-bold">订阅中心</h1>
+      <div class="w-10"></div>
+    </div>
+
+    <!-- 用户信息预览 -->
+    <div class="px-6 py-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-slate-200 border-2 border-white shadow-sm overflow-hidden">
+          <div class="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-500"></div>
+        </div>
+        <div>
+          <h2 class="font-bold text-lg italic">塞那银河用户</h2>
+          <p class="text-xs text-slate-500">开通会员，立享多项特权</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 套餐横向切换导航 -->
+    <div id="tabsContainer" class="overflow-x-auto no-scrollbar flex gap-4 px-6 py-4"></div>
+
+    <!-- 主展示卡片 -->
+    <div class="px-6 mt-2">
+      <div id="planCard" class="relative overflow-hidden rounded-3xl p-6 text-white bg-gradient-to-br shadow-xl transition-all duration-500"></div>
+    </div>
+
+    <!-- 权益对比（默认收起） -->
+    <div id="comparePanelWrap" class="px-6 mt-4 hidden"></div>
+
+    <!-- 价格选择方案 -->
+    <div class="px-6 mt-8">
+      <div class="flex items-center justify-between mb-4">
+        <h4 class="font-bold">时长选择</h4>
+        <span class="text-xs text-indigo-600 font-medium">首次订阅 1 元起</span>
+      </div>
+      <div id="billingOptions" class="overflow-x-auto no-scrollbar flex gap-3"></div>
+    </div>
+
+    <!-- 全能推荐浮窗 -->
+    <div class="px-6 mt-8 mb-8">
+      <div class="bg-slate-900 rounded-2xl p-4 flex items-center justify-between border border-slate-700">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-yellow-400 flex items-center justify-center">
+            <i data-lucide="crown" class="w-5 h-5 text-black"></i>
+          </div>
+          <div>
+            <p class="text-white text-xs font-bold">加 ¥10 升级超级会员</p>
+            <p class="text-slate-400 text-[10px]">解锁健康+录音+AI全量特权</p>
+          </div>
+        </div>
+        <button
+          id="upgradeBtn"
+          type="button"
+          class="text-yellow-400 text-xs font-bold border border-yellow-400/30 px-3 py-1.5 rounded-full hover:bg-yellow-400 hover:text-black transition-all"
+        >
+          立即升级
+        </button>
+      </div>
+    </div>
+
+    <!-- 底部购买栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t border-slate-100 px-6 py-5 flex items-center justify-between shadow-2xl z-50">
+      <div class="flex flex-col">
+        <div class="flex items-baseline gap-1">
+          <span id="bottomPrice" class="text-2xl font-black text-slate-900">¥0</span>
+          <span id="bottomUnit" class="text-xs text-slate-500 font-medium">/月</span>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-1">勾选代表同意《会员协议》</p>
+      </div>
+      <button
+        id="buyBtn"
+        type="button"
+        class="px-8 py-4 rounded-full font-bold text-white shadow-xl transform active:scale-95 transition-all bg-gradient-to-r"
+      >
+        立即购买
+      </button>
+    </div>
+
+    <style>
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
+
