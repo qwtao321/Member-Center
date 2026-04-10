@@ -4,28 +4,27 @@
 const plans = [
   {
     id: 'music',
-    name: '音乐会员',
-    desc: '会员曲库 + 无损音质',
+    name: 'AI音乐会员',
+    desc: '独享无损音质会员曲库，下载无限次离线也能听',
     icon: 'music-4',
     theme: 'from-pink-400 to-rose-500',
     regions: ['domestic'],
-    showInCompare: false,
     price: {
-      domestic: { monthly_auto: 8, monthly: 30, quarterly: 60, yearly: 180 }
+      domestic: { monthly_auto: 8, monthly: 18, quarterly: 25, half_yearly: 45, yearly: 88 }
     },
     features: ['会员曲库', '下载无限次数/月', '无损音质播放']
   },
   {
     id: 'ai',
     name: 'AI会员',
-    desc: '通用AI',
+    desc: '拥有 24 小时工作生活随身智能助手',
     icon: 'zap',
     theme: 'from-blue-400 to-indigo-500',
     price: {
-      domestic: { monthly_auto: 19, monthly: 33, quarterly: 99, yearly: 399 },
-      international: { monthly: 6.9, yearly: 69.9 }
+      domestic: { monthly_auto: 19, monthly: 29, quarterly: 59, half_yearly: 99, yearly: 168 },
+      international: { monthly: 9.9, yearly: 79.9 }
     },
-    features: ['塞那银河全能AI', '多模态AI', 'AI新模型抢先体验', 'AI语音助手']
+    features: ['塞那银河全能AI不限', 'AI语音助手不限', '面对面翻译100分钟/月', '录音转写100分钟/月']
   },
   {
     id: 'health',
@@ -42,14 +41,14 @@ const plans = [
   {
     id: 'rec_normal',
     name: '录音会员',
-    desc: '基础录音权益',
+    desc: '告别会议繁琐速记，满足全月会议转写总结需求',
     icon: 'mic',
     theme: 'from-purple-400 to-purple-600',
     price: {
-      domestic: { monthly_auto: 29, monthly: 49, quarterly: 119, yearly: 499 },
-      international: { monthly: 12.9, yearly: 129.9 }
+      domestic: { monthly_auto: 29, monthly: 39, quarterly: 79, half_yearly: 139, yearly: 239 },
+      international: { monthly: 12.9, yearly: 99.9 }
     },
-    features: ['1200分钟录音转写', '实时语音转文字', 'AI自动摘要', '云端存储']
+    features: ['塞那银河全能AI', '录音转写600分钟/月', 'AI录音会议总结', 'AI录音会议待办']
   },
   {
     id: 'rec_pro',
@@ -82,21 +81,24 @@ const regionConfigs = {
   domestic: {
     id: 'domestic',
     label: '国内版',
-    billingOptions: ['monthly_auto', 'monthly', 'quarterly', 'yearly'],
-    planIds: ['ai', 'music', 'rec_normal', 'health', 'super']
+    billingOptions: ['monthly_auto', 'monthly', 'quarterly', 'half_yearly', 'yearly'],
+    planIds: ['ai', 'music', 'rec_normal'],
+    comparePlanIds: ['non_member', 'ai', 'music', 'rec_normal']
   },
   international: {
     id: 'international',
     label: '国际版',
     billingOptions: ['monthly', 'yearly'],
-    planIds: ['ai', 'rec_normal', 'health', 'super']
+    planIds: ['ai', 'rec_normal'],
+    comparePlanIds: ['non_member', 'ai', 'rec_normal']
   }
 };
 
 const billingOptionMeta = {
-  monthly_auto: { id: 'monthly_auto', label: '连续包月', multiplier: 1, fixedCornerTag: '首月 ¥1' },
+  monthly_auto: { id: 'monthly_auto', label: '连续包月', multiplier: 1, fixedCornerTag: '' },
   monthly: { id: 'monthly', label: '月度会员', multiplier: 1, fixedCornerTag: '' },
   quarterly: { id: 'quarterly', label: '季度会员', multiplier: 3, fixedCornerTag: '' },
+  half_yearly: { id: 'half_yearly', label: '半年会员', multiplier: 6, fixedCornerTag: '' },
   yearly: { id: 'yearly', label: '年度会员', multiplier: 12, fixedCornerTag: '' }
 };
 
@@ -109,43 +111,93 @@ const buttonGradients = {
   super: 'linear-gradient(135deg, #1f2937 0%, #000000 100%)'
 };
 
+const compareOnlyPlans = {
+  non_member: {
+    id: 'non_member',
+    name: '非会员',
+    icon: 'user',
+    theme: 'from-slate-400 to-slate-600'
+  }
+};
+
 const compareRows = [
-  { label: '塞那银河全能AI', values: { ai: '支持', health: '支持', rec_normal: '支持', rec_pro: '支持', super: '支持' } },
-  { label: 'AI语音助手', values: { ai: '支持', health: '支持', rec_normal: '支持', rec_pro: '支持', super: '支持' } },
+  {
+    label: '塞那银河全能AI',
+    values: { non_member: '每日5次', ai: '不限', music: '', rec_normal: '不限' }
+  },
+  {
+    label: 'AI语音助手',
+    values: { non_member: '每日3分钟', ai: '不限', music: '', rec_normal: '不限' }
+  },
   {
     label: '面对面翻译',
-    values: { ai: '1000分钟/月', health: '1000分钟/月', rec_normal: '不限', rec_pro: '不限', super: '支持' }
+    values: { non_member: '5分钟/月', ai: '100分钟/月', music: '', rec_normal: '600分钟/月' }
   },
   {
     label: '同声听译',
-    values: { ai: '300分钟/月', health: '100分钟/月', rec_normal: '不限', rec_pro: '不限', super: '支持' }
+    values: { non_member: '5分钟/月', ai: '50分钟/月', music: '', rec_normal: '300分钟/月' }
   },
   {
-    label: '实时录音转写',
-    values: { ai: '100分钟/月', health: '100分钟/月', rec_normal: '600分钟/月', rec_pro: '1200分钟/月', super: '支持' }
+    label: '录音转写',
+    values: { non_member: '5分钟/月', ai: '100分钟/月', music: '', rec_normal: '600分钟/月' }
   },
   {
     label: '文字转语音',
-    values: { ai: '10000字/月', health: '10000字/月', rec_normal: '不限', rec_pro: '不限', super: '支持' }
+    values: { non_member: '100字/月', ai: '10000字/月', music: '', rec_normal: '60000字/月' }
   },
-  { label: 'AI绘图', values: { ai: '3次', health: '3次', rec_normal: '3次', rec_pro: '3次', super: '3次' } },
-  { label: '助眠计划', values: { ai: '', health: '支持', rec_normal: '', rec_pro: '', super: '支持' } },
-  { label: 'AI健康顾问', values: { ai: '', health: '支持', rec_normal: '', rec_pro: '', super: '支持' } },
-  { label: '转写时长', values: { ai: '', health: '', rec_normal: '600分钟', rec_pro: '1200分钟', super: '无限' } },
-  { label: '大模型调用', values: { ai: '', health: '', rec_normal: '支持', rec_pro: '支持', super: '支持' } },
-  { label: '思维导图', values: { ai: '', health: '', rec_normal: '支持', rec_pro: '支持', super: '支持' } },
-  { label: '全局AI问答', values: { ai: '', health: '', rec_normal: '支持', rec_pro: '支持', super: '支持' } },
-  { label: '音频导入', values: { ai: '', health: '', rec_normal: '支持', rec_pro: '支持', super: '支持' } },
-  { label: '冥想/呼吸/瑜伽内容', values: { ai: '', health: '', rec_normal: '', rec_pro: '', super: '支持' } },
-  { label: 'AI深度分析', values: { ai: '', health: '', rec_normal: '', rec_pro: '', super: '支持' } },
-  { label: '会员曲库', values: { ai: '', health: '', rec_normal: '', rec_pro: '', super: '支持' } },
-  { label: '下载次数', values: { ai: '', health: '', rec_normal: '', rec_pro: '', super: '无限/月' } },
-  { label: '无损音质播放', values: { ai: '', health: '', rec_normal: '', rec_pro: '', super: '支持' } }
+  {
+    label: '云空间',
+    values: { non_member: '', ai: '1GB', music: '', rec_normal: '3GB' }
+  },
+  {
+    label: '音频区分人说话',
+    values: { non_member: '', ai: '支持', music: '', rec_normal: '支持' }
+  },
+  {
+    label: '音频导入',
+    values: { non_member: '', ai: '支持', music: '', rec_normal: '支持' }
+  },
+  {
+    label: '思维导图',
+    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+  },
+  {
+    label: '录音AI问答',
+    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+  },
+  {
+    label: '录音总结模版',
+    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+  },
+  {
+    label: 'AI录音会议总结',
+    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+  },
+  {
+    label: 'AI录音总结章节',
+    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+  },
+  {
+    label: 'AI录音会议待办',
+    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+  },
+  {
+    label: '会员曲库',
+    values: { non_member: '', ai: '', music: '支持', rec_normal: '' }
+  },
+  {
+    label: '下载次数',
+    values: { non_member: '', ai: '', music: '无限/月', rec_normal: '' }
+  },
+  {
+    label: '无损音质播放',
+    values: { non_member: '', ai: '', music: '支持', rec_normal: '' }
+  }
 ];
 
 const state = {
   activeRegion: 'domestic',
-  activeTab: 'super', // 默认选中超级会员
+  activeTab: 'ai',
   billingCycle: 'monthly_auto',
   compareOpen: false // 对比面板默认收起
 };
@@ -168,6 +220,10 @@ function escapeHtml(str) {
 
 function getCurrentPlan() {
   return plans.find((p) => p.id === state.activeTab) || plans[0];
+}
+
+function getPlanMetaById(planId) {
+  return plans.find((p) => p.id === planId) || compareOnlyPlans[planId] || null;
 }
 
 function getCurrentRegionConfig() {
@@ -225,8 +281,16 @@ function getCurrentCurrencySymbol() {
   return state.activeRegion === 'international' ? '$' : '¥';
 }
 
+function getMonthlyAutoTag(planId) {
+  if (state.activeRegion !== 'domestic') return '';
+  if (planId === 'ai' || planId === 'music') return '首月 ¥0';
+  if (planId === 'rec_normal') return '首月 ¥19';
+  return '';
+}
+
 function getUnitFromCycle(cycle) {
   if (cycle.includes('yearly')) return '年';
+  if (cycle.includes('half_yearly')) return '6月';
   if (cycle.includes('quarter')) return '季';
   return '月';
 }
@@ -264,8 +328,10 @@ function getCompareItems() {
 }
 
 function getComparePlanColumns() {
-  return getVisiblePlans()
-    .filter((p) => p.showInCompare !== false)
+  const regionConfig = getCurrentRegionConfig();
+  return (regionConfig.comparePlanIds || [])
+    .map((planId) => getPlanMetaById(planId))
+    .filter(Boolean)
     .map((p) => ({
       id: p.id,
       name: p.name,
@@ -494,7 +560,7 @@ function renderComparePanel() {
                   <div class="text-xs font-bold text-slate-900">${escapeHtml(c.name)}</div>
                   <div class="mt-1 mx-auto w-8 h-8 rounded-xl bg-gradient-to-br ${c.theme} flex items-center justify-center">
                     <i data-lucide="${escapeHtml(
-                      plans.find((p) => p.id === c.id)?.icon || 'star'
+                      getPlanMetaById(c.id)?.icon || 'star'
                     )}" class="w-4 h-4 text-white"></i>
                   </div>
                 </th>
@@ -666,9 +732,9 @@ function renderBillingOptions() {
       const savingsText = savingsValue > 0 ? `省${currencySymbol}${formatMoney(savingsValue)}` : '';
 
       const cornerTag =
-        option.fixedCornerTag && option.id === 'monthly_auto'
+        getMonthlyAutoTag(current.id) && option.id === 'monthly_auto'
           ? `<span class="absolute top-3 right-3 bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-md font-bold whitespace-nowrap leading-none">${escapeHtml(
-              option.fixedCornerTag
+              getMonthlyAutoTag(current.id)
             )}</span>`
           : savingsValue > 0
             ? `<span class="absolute top-3 right-3 bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-md font-bold whitespace-nowrap leading-none">${escapeHtml(
