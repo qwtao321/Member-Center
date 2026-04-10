@@ -25,19 +25,25 @@
 
     <!-- 用户信息预览 -->
     <div class="px-6 py-4">
-      <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-full bg-slate-200 border-2 border-white shadow-sm overflow-hidden">
-          <div class="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-500"></div>
+      <div class="flex items-start justify-between gap-4">
+        <div class="flex items-center gap-4 min-w-0">
+          <div class="w-12 h-12 rounded-full bg-slate-200 border-2 border-white shadow-sm overflow-hidden flex-shrink-0">
+            <div class="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-500"></div>
+          </div>
+          <div class="min-w-0">
+            <h2 class="font-bold text-lg italic">塞那银河用户</h2>
+            <p class="text-xs text-slate-500">开通会员，立享多项特权</p>
+          </div>
         </div>
-        <div>
-          <h2 class="font-bold text-lg italic">塞那银河用户</h2>
-          <p class="text-xs text-slate-500">开通会员，立享多项特权</p>
-        </div>
+        <div id="regionTabs" class="flex-shrink-0"></div>
       </div>
     </div>
 
     <!-- 套餐横向切换导航 -->
-    <div id="tabsContainer" class="overflow-x-auto no-scrollbar flex gap-4 px-6 py-4"></div>
+    <div
+      id="tabsContainer"
+      class="overflow-x-auto no-scrollbar flex flex-nowrap gap-4 px-6 py-4 snap-x snap-mandatory"
+    ></div>
 
     <!-- 主展示卡片 -->
     <div class="px-6 mt-2">
@@ -51,31 +57,9 @@
     <div class="px-6 mt-8">
       <div class="flex items-center justify-between mb-4">
         <h4 class="font-bold">时长选择</h4>
-        <span class="text-xs text-indigo-600 font-medium">首次订阅 1 元起</span>
+        <span class="text-xs text-indigo-600 font-medium">多档套餐可选</span>
       </div>
-      <div id="billingOptions" class="overflow-x-auto no-scrollbar flex gap-3"></div>
-    </div>
-
-    <!-- 全能推荐浮窗 -->
-    <div class="px-6 mt-8 mb-8">
-      <div class="bg-slate-900 rounded-2xl p-4 flex items-center justify-between border border-slate-700">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-yellow-400 flex items-center justify-center">
-            <i data-lucide="crown" class="w-5 h-5 text-black"></i>
-          </div>
-          <div>
-            <p class="text-white text-xs font-bold">加 ¥10 升级超级会员</p>
-            <p class="text-slate-400 text-[10px]">解锁健康+录音+AI全量特权</p>
-          </div>
-        </div>
-        <button
-          id="upgradeBtn"
-          type="button"
-          class="text-yellow-400 text-xs font-bold border border-yellow-400/30 px-3 py-1.5 rounded-full hover:bg-yellow-400 hover:text-black transition-all"
-        >
-          立即升级
-        </button>
-      </div>
+      <div id="billingOptions" class="overflow-x-hidden no-scrollbar grid grid-cols-2 gap-3 md:flex md:overflow-x-auto"></div>
     </div>
 
     <!-- 底部购买栏 -->
@@ -103,6 +87,13 @@
       .no-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
+      }
+      #planCard {
+        opacity: 1;
+        transition: opacity 300ms ease;
+      }
+      #planCard.is-fading {
+        opacity: 0;
       }
     </style>
 
