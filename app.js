@@ -82,8 +82,8 @@ const regionConfigs = {
     id: 'domestic',
     label: '国内版',
     billingOptions: ['monthly_auto', 'monthly', 'quarterly', 'half_yearly', 'yearly'],
-    planIds: ['ai', 'music', 'rec_normal'],
-    comparePlanIds: ['non_member', 'ai', 'music', 'rec_normal']
+    planIds: ['ai', 'rec_normal', 'music'],
+    comparePlanIds: ['non_member', 'ai', 'rec_normal', 'music']
   },
   international: {
     id: 'international',
