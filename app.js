@@ -24,7 +24,7 @@ const plans = [
       domestic: { monthly_auto: 19, monthly: 29, quarterly: 59, half_yearly: 99, yearly: 168 },
       international: { monthly: 9.9, yearly: 79.9 }
     },
-    features: ['塞那银河全能AI不限', 'AI语音助手不限', '面对面翻译100分钟/月', '录音转写100分钟/月']
+    features: ['塞那银河全能AI不限', 'AI语音助手不限', '面对面翻译100分钟/月', '同声听译50分钟/月']
   },
   {
     id: 'health',
@@ -48,7 +48,7 @@ const plans = [
       domestic: { monthly_auto: 29, monthly: 39, quarterly: 79, half_yearly: 139, yearly: 239 },
       international: { monthly: 12.9, yearly: 99.9 }
     },
-    features: ['塞那银河全能AI', '录音转写600分钟/月', 'AI录音会议总结', 'AI录音会议待办']
+    features: ['塞那银河全能AI', 'AI语音助手', '录音转写600分钟/月', '文字转语音60000字/月']
   },
   {
     id: 'rec_pro',
@@ -123,11 +123,11 @@ const compareOnlyPlans = {
 const compareRows = [
   {
     label: '塞那银河全能AI',
-    values: { non_member: '每日5次', ai: '不限', music: '', rec_normal: '不限' }
+    values: { non_member: '每日5次', ai: '不限', music: '', rec_normal: '支持' }
   },
   {
     label: 'AI语音助手',
-    values: { non_member: '每日3分钟', ai: '不限', music: '', rec_normal: '不限' }
+    values: { non_member: '每日3分钟', ai: '不限', music: '', rec_normal: '支持' }
   },
   {
     label: '面对面翻译',
