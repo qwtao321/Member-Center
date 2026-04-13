@@ -10,21 +10,21 @@ const plans = [
     theme: 'from-pink-400 to-rose-500',
     regions: ['domestic'],
     price: {
-      domestic: { monthly_auto: 8, monthly: 18, quarterly: 25, half_yearly: 45, yearly: 88 }
+      domestic: { monthly: 10, yearly: 120 }
     },
     features: ['会员曲库', '下载无限次数/月', '无损音质播放']
   },
   {
     id: 'ai',
-    name: 'AI会员',
+    name: '基础会员',
     desc: '拥有 24 小时工作生活随身智能助手',
     icon: 'zap',
     theme: 'from-blue-400 to-indigo-500',
     price: {
-      domestic: { monthly_auto: 19, monthly: 29, quarterly: 59, half_yearly: 99, yearly: 168 },
-      international: { monthly: 9.9, yearly: 79.9 }
+      domestic: { monthly_auto: 32, monthly: 40, yearly: 384 },
+      international: { monthly: 19.9, yearly: 199.9 }
     },
-    features: ['塞那银河全能AI不限', 'AI语音助手不限', '面对面翻译100分钟/月', '同声听译50分钟/月']
+    features: ['塞那银河全能AI不限', 'AI语音助手不限', '录音转写300分钟/月', '文字转语音20000字/月']
   },
   {
     id: 'health',
@@ -40,15 +40,15 @@ const plans = [
   },
   {
     id: 'rec_normal',
-    name: '录音会员',
+    name: '高级会员',
     desc: '告别会议繁琐速记，满足全月会议转写总结需求',
     icon: 'mic',
     theme: 'from-purple-400 to-purple-600',
     price: {
-      domestic: { monthly_auto: 29, monthly: 39, quarterly: 79, half_yearly: 139, yearly: 239 },
-      international: { monthly: 12.9, yearly: 99.9 }
+      domestic: { monthly_auto: 49, monthly: 69, yearly: 699 },
+      international: { monthly: 39.9, yearly: 399.9 }
     },
-    features: ['塞那银河全能AI', 'AI语音助手', '录音转写600分钟/月', '文字转语音60000字/月']
+    features: ['塞那银河全能AI', 'AI语音助手', '录音转写1200分钟/月', '文字转语音40000字/月']
   },
   {
     id: 'rec_pro',
@@ -123,31 +123,31 @@ const compareOnlyPlans = {
 const compareRows = [
   {
     label: '塞那银河全能AI',
-    values: { non_member: '每日5次', ai: '不限', music: '', rec_normal: '支持' }
+    values: { non_member: '每日5次', ai: '不限', music: '', rec_normal: '不限' }
   },
   {
     label: 'AI语音助手',
-    values: { non_member: '每日3分钟', ai: '不限', music: '', rec_normal: '支持' }
+    values: { non_member: '5轮对话', ai: '不限', music: '', rec_normal: '不限' }
   },
   {
     label: '面对面翻译',
-    values: { non_member: '5分钟/月', ai: '100分钟/月', music: '', rec_normal: '600分钟/月' }
+    values: { non_member: '5分钟', ai: '180分钟/月', music: '', rec_normal: '360分钟/月' }
   },
   {
     label: '同声听译',
-    values: { non_member: '5分钟/月', ai: '50分钟/月', music: '', rec_normal: '300分钟/月' }
+    values: { non_member: '5分钟', ai: '120分钟/月', music: '', rec_normal: '240分钟/月' }
   },
   {
     label: '录音转写',
-    values: { non_member: '5分钟/月', ai: '100分钟/月', music: '', rec_normal: '600分钟/月' }
+    values: { non_member: '5分钟', ai: '300分钟/月', music: '', rec_normal: '1200分钟/月' }
   },
   {
     label: '文字转语音',
-    values: { non_member: '100字/月', ai: '10000字/月', music: '', rec_normal: '60000字/月' }
+    values: { non_member: '100字', ai: '20000字/月', music: '', rec_normal: '40000字/月' }
   },
   {
     label: '云空间',
-    values: { non_member: '', ai: '1GB', music: '', rec_normal: '3GB' }
+    values: { non_member: '1GB', ai: '3GB', music: '', rec_normal: '3GB' }
   },
   {
     label: '音频区分人说话',
@@ -283,8 +283,7 @@ function getCurrentCurrencySymbol() {
 
 function getMonthlyAutoTag(planId) {
   if (state.activeRegion !== 'domestic') return '';
-  if (planId === 'ai' || planId === 'music') return '首月 ¥0';
-  if (planId === 'rec_normal') return '首月 ¥19';
+  if (planId === 'ai' || planId === 'rec_normal') return '7天免费';
   return '';
 }
 
@@ -675,6 +674,33 @@ function updatePlanSelection(planId, { animateCard = false, centerTab = true } =
   }
 }
 
+function openRedeemModal() {
+  const modal = document.getElementById('redeemModal');
+  const input = document.getElementById('redeemCodeInput');
+  if (!modal) return;
+
+  modal.classList.add('is-open');
+  modal.classList.remove('hidden');
+  modal.setAttribute('aria-hidden', 'false');
+
+  if (window.lucide && typeof window.lucide.createIcons === 'function') {
+    window.lucide.createIcons();
+  }
+
+  if (input) {
+    window.setTimeout(() => input.focus(), 30);
+  }
+}
+
+function closeRedeemModal() {
+  const modal = document.getElementById('redeemModal');
+  if (!modal) return;
+
+  modal.classList.remove('is-open');
+  modal.classList.add('hidden');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
 function getCenteredPlanId() {
   const container = document.getElementById('tabsContainer');
   if (!container) return '';
@@ -708,9 +734,33 @@ function renderBillingOptions() {
 
   const monthlyBase = Number(getCurrentPriceMap().monthly || 0);
   const options = getBillingOptionsForRegion();
+  const showMusicTrialCard = current.id === 'music' && state.activeRegion === 'domestic';
+  const displayOptions = showMusicTrialCard
+    ? [
+        { id: 'trial_card', label: '体验卡', detail: '登录送1天', promo: '活动', isTrial: true },
+        ...options
+      ]
+    : options;
 
-  container.innerHTML = options
+  container.innerHTML = displayOptions
     .map((option) => {
+      if (option.isTrial) {
+        return `
+          <button
+            type="button"
+            class="relative p-4 rounded-2xl border-2 border-slate-200 bg-white max-h-[120px] flex flex-col overflow-hidden flex-1 min-w-0 md:min-w-[170px] text-left"
+          >
+            <span class="absolute top-3 left-3 rounded-full border border-slate-300 bg-white px-3 py-1 text-[11px] font-bold text-slate-700">
+              ${escapeHtml(option.promo)}
+            </span>
+            <div class="flex-1 pt-7">
+              <div class="text-xl font-black text-slate-800">${escapeHtml(option.label)}</div>
+              <div class="mt-4 text-sm font-medium text-slate-700">${escapeHtml(option.detail)}</div>
+            </div>
+          </button>
+        `;
+      }
+
       const isActive = option.id === state.billingCycle;
       const baseClass =
         'relative p-4 rounded-2xl border-2 transition-all duration-300 flex flex-col overflow-hidden';
@@ -799,6 +849,14 @@ function renderBillingOptions() {
       `;
     })
     .join('');
+
+  if (showMusicTrialCard) {
+    container.innerHTML += `
+      <div class="col-span-2 text-xs text-slate-500 md:basis-full md:w-full">
+        注：活动期间，不消耗会员权益。
+      </div>
+    `;
+  }
 }
 
 function updateBottomBar() {
@@ -884,6 +942,44 @@ function setupEvents() {
     const btn = e.target && e.target.closest && e.target.closest('button[data-compare-toggle="1"]');
     if (!btn) return;
     setCompareVisibility(!state.compareOpen);
+  });
+
+  const redeemEntryBtn = document.getElementById('redeemEntryBtn');
+  const redeemModal = document.getElementById('redeemModal');
+  const redeemCloseBtn = document.getElementById('redeemCloseBtn');
+  const redeemSubmitBtn = document.getElementById('redeemSubmitBtn');
+  const redeemScanBtn = document.getElementById('redeemScanBtn');
+  const redeemCodeInput = document.getElementById('redeemCodeInput');
+
+  redeemEntryBtn.addEventListener('click', openRedeemModal);
+  redeemCloseBtn.addEventListener('click', closeRedeemModal);
+
+  redeemModal.addEventListener('click', (e) => {
+    if (e.target === redeemModal) {
+      closeRedeemModal();
+    }
+  });
+
+  redeemScanBtn.addEventListener('click', () => {
+    if (redeemCodeInput) {
+      redeemCodeInput.focus();
+    }
+  });
+
+  redeemSubmitBtn.addEventListener('click', () => {
+    const code = (redeemCodeInput?.value || '').trim();
+    if (!code) {
+      window.alert('请输入8位兑换码');
+      return;
+    }
+    window.alert(`兑换码 ${code} 已提交`);
+    closeRedeemModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeRedeemModal();
+    }
   });
 }
 
