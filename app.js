@@ -730,6 +730,7 @@ function getCenteredPlanId() {
 function renderBillingOptions() {
   const current = getCurrentPlan();
   const container = document.getElementById('billingOptions');
+  const note = document.getElementById('billingNote');
   const currencySymbol = getCurrentCurrencySymbol();
 
   const monthlyBase = Number(getCurrentPriceMap().monthly || 0);
@@ -850,12 +851,8 @@ function renderBillingOptions() {
     })
     .join('');
 
-  if (showMusicTrialCard) {
-    container.innerHTML += `
-      <div class="col-span-2 text-xs text-slate-500 md:basis-full md:w-full">
-        注：活动期间，不消耗会员权益。
-      </div>
-    `;
+  if (note) {
+    note.classList.toggle('hidden', !showMusicTrialCard);
   }
 }
 
