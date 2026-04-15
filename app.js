@@ -159,27 +159,27 @@ const compareRows = [
   },
   {
     label: '思维导图',
-    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+    values: { non_member: '', ai: '支持', music: '', rec_normal: '支持' }
   },
   {
     label: '录音AI问答',
-    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+    values: { non_member: '', ai: '支持', music: '', rec_normal: '支持' }
   },
   {
     label: '录音总结模版',
-    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+    values: { non_member: '', ai: '支持', music: '', rec_normal: '支持' }
   },
   {
     label: 'AI录音会议总结',
-    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+    values: { non_member: '', ai: '支持', music: '', rec_normal: '支持' }
   },
   {
     label: 'AI录音总结章节',
-    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+    values: { non_member: '', ai: '支持', music: '', rec_normal: '支持' }
   },
   {
     label: 'AI录音会议待办',
-    values: { non_member: '', ai: '', music: '', rec_normal: '支持' }
+    values: { non_member: '', ai: '支持', music: '', rec_normal: '支持' }
   },
   {
     label: '会员曲库',
