@@ -24,7 +24,14 @@ const plans = [
       domestic: { monthly_auto: 32, monthly: 40, yearly: 384 },
       international: { monthly: 19.9, yearly: 199.9 }
     },
-    features: ['塞那银河全能AI不限', 'AI语音助手不限', '录音转写300分钟/月', '文字转语音20000字/月']
+    features: [
+      '塞那银河全能AI',
+      'AI语音助手',
+      '面对面翻译180分钟/月',
+      '同声听译120分钟/月',
+      '录音转写300分钟/月',
+      '文字转语音20000字/月'
+    ]
   },
   {
     id: 'health',
@@ -41,14 +48,21 @@ const plans = [
   {
     id: 'rec_normal',
     name: '高级会员',
-    desc: '告别会议繁琐速记，满足全月会议转写总结需求',
+    desc: '在基础会员权益上，满足全月的会议转写翻译总结需求',
     icon: 'mic',
     theme: 'from-purple-400 to-purple-600',
     price: {
       domestic: { monthly_auto: 49, monthly: 69, yearly: 699 },
       international: { monthly: 39.9, yearly: 399.9 }
     },
-    features: ['塞那银河全能AI', 'AI语音助手', '录音转写1200分钟/月', '文字转语音40000字/月']
+    features: [
+      '塞那银河全能AI',
+      'AI语音助手',
+      '面对面翻译360分钟/月',
+      '同声听译240分钟/月',
+      '录音转写1200分钟/月',
+      '文字转语音40000字/月'
+    ]
   },
   {
     id: 'rec_pro',
